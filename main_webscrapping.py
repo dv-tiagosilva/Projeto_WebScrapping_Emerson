@@ -48,6 +48,8 @@ clicar_go.click()
 # esperar (conferir se os filtros foram satisfeitos)
 time.sleep(10)
 
+# agora vou ter que fazer o site clicar em cada link da pesquisa, alterar o tipo de documento para "FACTA" clicar para realizar o download (tentar criar uma função para isso, pois esse método será repetido várias vezes). Após, clicar para voltar para a pagina anterior e clicar no link abaixo do link que foi selecionado, e repetir o processo
+
 
 
 
