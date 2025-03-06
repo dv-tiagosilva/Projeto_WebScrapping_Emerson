@@ -3,9 +3,12 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.action_chains import ActionChains
 import time
 
+
 navegador = webdriver.Chrome()
+navegador.implicitly_wait(10)
 
 # acessar o site PaVE - da NCBI
 navegador.get("https://pave.niaid.nih.gov/search/search_database")
@@ -19,17 +22,24 @@ preencher_database = navegador.find_element(By.ID, "region_search")
 preencher_database.click()
 
 # selecionar o campo "Select Filters" para clicar em "Host Species"
-preencher_select_filters = navegador.find_element(By.CSS_SELECTOR, 'button[data-bs-target="#collapse-host-filter"]')
-preencher_select_filters.click()
+# preencher_select_filters = navegador.find_element(By.CSS_SELECTOR, 'button[data-bs-target="#collapse-host-filter"]')
+# preencher_select_filters.click()
+
+mover_mouse = navegador.find_element(By.CSS_SELECTOR, 'button[data-bs-target="#collapse-host-filter"]')
+actions = ActionChains(navegador)
+actions.move_to_element(mover_mouse).perform()  # Move o mouse até o elemento
+actions.click().perform()
 
 # esperar (conferir se clicou)
 time.sleep(10)
 
-
 # selecionar a opção "Homo sapiens (Human)" dentro de "Host Species"
 valor="Homo sapiens (Human)"
+
 preencher_host_species = navegador.find_element(By.XPATH, '//input[@value="Homo sapiens (Human)"]')
-preencher_host_species.click()
+actions_host_species = ActionChains(navegador)
+actions.move_to_element(preencher_host_species).perform()  # Move o mouse até o elemento
+actions.click().perform()
 
 # esperar (conferir se clicou)
 time.sleep(10)
@@ -49,8 +59,6 @@ clicar_go.click()
 time.sleep(10)
 
 # agora vou ter que fazer o site clicar em cada link da pesquisa, alterar o tipo de documento para "FACTA" clicar para realizar o download (tentar criar uma função para isso, pois esse método será repetido várias vezes). Após, clicar para voltar para a pagina anterior e clicar no link abaixo do link que foi selecionado, e repetir o processo
-
-
 
 
 
